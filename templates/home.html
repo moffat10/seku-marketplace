@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seku Market</title>
+    <style>
+        #container{
+            margin:0,auto,0,auto;
+            text-align: center;
+            background: #0ec545;
+            border-radius: 35px;
+
+        }
+        h1{
+            font-family: monospace;
+            color: bisque;
+            font-weight: bold;
+        }
+        #moto{
+            margin: 0px,auto,0px,auto;
+            color:#0ec545;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-style: italic;
+            border-radius: 30px;
+            background-color: burlywood;
+        }
+        button{
+            background-color: #0ec545;
+            border-color: beige;
+            height: 50px;
+        
+        }
+        a{
+            font-family: monospace;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"><h1 style="font-size:50px;">SEKU MARKET<h1></div>
+    <div id="moto"><nav><h2>Comrade's choice<h2></nav></div>
+    <div style="text-align: right;background-color:darkkhaki; border-radius: 20px;">Search: <input type="search" placeholder="Enter keyword"><input type="submit"></div><br><br>
+<div style="margin: 0,auto,0,auto; text-align: center; font-size:x-large; background-color: blanchedalmond;"><br>
+    <a href="\templates\categories">Category</a>  |    <a href="\templates\create-seller">Create seller account</a>  |  <a href="\templates\login">Seller Login</a>  |  <a href="\templates\advertise">Advertise with us</a>
+</div><br><br>
+<div style="margin: 0,auto,0,auto; text-align: center; background-color: bisque;">
+    <img src="static\adv.jpg" width="100%" height="200px" alt="advert">
+    
+</div>
+<div>{{products}}</div>
+<div style="background-color: burlywood;color: royalblue;text-align: center;"><p>
+    About developer: <a href="">MSO</a>
+</p></div>
+    
+</body>
+</html>
