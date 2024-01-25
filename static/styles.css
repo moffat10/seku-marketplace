@@ -9,9 +9,9 @@
 #data{
     background-color: bisque;
     text-align: center;
-    color:coral;
+    color:#350fe0;
     font-family: fantasy;
-    font-size: x-large;
+    font-size: medium;
     border-radius: 20px;
 }
 button{
@@ -48,3 +48,99 @@ a{
     border-radius: 20px;
 
         }
+.product-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+.product-card{
+    background-color: bisque;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: 15px;
+    padding: 20px;
+    width: 75%;
+    text-align: center;
+}
+.product-image{
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.product-name{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.product-price{
+    font-size: 16px;
+    color: #27ae60;
+    margin-bottom: 10px;
+}
+.product-condition{
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.seller-contact{
+    font-size: 14px;
+    color: #3498db;
+}
+.alert{
+    padding: 15px;
+    background-color:#c5360ad3;
+    color:white;
+    margin-bottom: 15px;
+
+}
+input[type=text]{
+    padding: 8px 20px;
+    margin: 8px 0;
+    box-sizing:border-box;
+}
+input[type=password]{
+    padding: 8px 20px;
+    margin: 8px 0;
+    box-sizing:border-box;
+}
+.closebtn{
+    margin-left: 15px;
+    padding: 0px 7px ;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 35px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-bottom: 15px;
+}
+
+.closebtn:hover{
+    color:black
+}
+.logoutbtn{
+    margin-left: 15px;
+    color: red;
+    font-weight: lighter;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+select{
+    padding: 8px 15px;
+    margin: 8px 0;
+    box-sizing:border-box;  
+}
+input[type=tel]{
+    padding: 8px 15px;
+    margin: 8px 0;
+    box-sizing:border-box;
+}
+input[type=number]{
+    padding: 8px 15px;
+    margin: 8px 0;
+    box-sizing:border-box;
+}

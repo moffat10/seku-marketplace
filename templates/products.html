@@ -10,17 +10,11 @@
 <body>
     <div id="category"><a href="/">Home</a><h1>Phones</h1></div>
     <div id="pro">
-    {%for product in products%}
-    {%if product['category']=='phones'%}
     <h2>{{product['name']}}</h2><br>
     <img src="/static/adv.JPG" width="100px" height="100px"><br>
-    <h4>{{product['description']}}<br>
-    Price: {{product['price']}}<br>
-    Location: {{product['location']}}</h4>
     <u><h3>Contact seller</h3></u>
     <a href="">Whatsapp </a>   |   |   <a href=""> Call</a>
-    {%endif%}
-    {%endfor%}
+  
     </div>
 </body>
 </html>

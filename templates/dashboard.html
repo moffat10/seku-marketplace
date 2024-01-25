@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div id="header"><h1>Dashboard      | {{ current_user.username }} <a href="{{url_for('logout')}}" style="align-items: self-end;"> <button class="logoutbtn">Log out</button></a> </h1></div>
+    {% with messages=get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <h4>{{message}}</h4>
+                </div>
+                {% endfor %}
+            {% endif %}
+    {% endwith %}
+    <h1 id="fog">My Products</h1>
+    {%for product in user_products%}
+    <div class="product-container">
+    <div class="product-card">
+        <img src="{{product.image_url}}" alt="image" class="product-image">
+        <div class="product-name">{{product.name}}</div>
+        <div class="product-price">Ksh {{product.price}}</div>
+        <div class="product-condition">{{product.product_nature}}</div>
+        <div class="seller-contact">{{product.price_terms}}</div>
+    </div>
+    </div>
+    {%endfor%}
+   <div class="product-container">
+        <a href="{{url_for('addproduct')}}"><button>Add</button></a>
+   </div>
+    
+</body>
+</html>

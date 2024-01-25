@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seku Market</title>
+    <link rel="stylesheet" href="/static/styles2.css">
     <style>
         #container{
             margin:0,auto,0,auto;
@@ -28,9 +29,13 @@
             background-color: burlywood;
         }
         button{
-            background-color: #0ec545;
+            background-color:blue;
             border-color: beige;
             height: 50px;
+            font-style:normal;
+            font: message-box;
+            color: beige;
+            border-radius: 10px;
         
         }
         a{
@@ -40,18 +45,27 @@
     </style>
 </head>
 <body>
-    <div id="container"><h1 style="font-size:50px;">SEKU MARKET<h1></div>
+    <div id="container"><h1 style="font-size:50px;">SEKU VIRTUAL MARKET<h1></div>
     <div id="moto"><nav><h2>Comrade's choice<h2></nav></div>
     <div style="text-align: right;background-color:darkkhaki; border-radius: 20px;">Search: <input type="search" placeholder="Enter keyword"><input type="submit"></div><br><br>
 <div style="margin: 0,auto,0,auto; text-align: center; font-size:x-large; background-color: blanchedalmond;"><br>
-    <a href="\templates\categories">Category</a>  |    <a href="\templates\create-seller">Create seller account</a>  |  <a href="\templates\login">Seller Login</a>  |  <a href="\templates\advertise">Advertise with us</a>
+    <a href="\templates\categories"><button>Category</button></a>  |    <a href="\templates\create-seller"><button>Create account</button></a>  |  <a href="\templates\login"><button>Login</button></a>  |  <a href="\templates\advertise"><button>Advertise</button></a>
 </div><br><br>
-<div style="margin: 0,auto,0,auto; text-align: center; background-color: bisque;">
-    <img src="static\adv.jpg" width="100%" height="200px" alt="advert">
+<div style="margin: 10%,auto,10%,auto; text-align: center; background-color: rgb(204, 120, 17);padding: 20px;">
+    <img src="static\adv.jpg" alt="advert" class="ad-image">
     
+{%for product in all_products%}
+<div class="product-container">
+<div class="product-card">
+    <img src="{{product.image_url}}" alt="image" class="product-image">
+    <div class="product-name">{{product.name}}</div>
+    <div class="product-price">Ksh {{product.price}}</div>
+    <div class="product-condition">{{product.product_nature}}</div>
+    <div class="seller-contact">{{product.price_terms}}</div>
 </div>
-<div>{{products}}</div>
-<div style="background-color: burlywood;color: royalblue;text-align: center;"><p>
+</div>
+{%endfor%}
+<div style="background-color: burlywood;color: royalblue;text-align: center;" font="x-large"><p>
     About developer: <a href="">MSO</a>
 </p></div>
     
