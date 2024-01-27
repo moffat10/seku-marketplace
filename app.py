@@ -130,23 +130,7 @@ def addproduct():
 @app.route('/templates/advertise')
 def advertise():
     return render_template('advert.html')
-def proadd():
-    uploaded_file=request.files["product_image"]
-    filename=secure_filename(uploaded_file.filename)
-    uploaded_file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
-    image_url='/static/files/'+filename
-    name=request.form['product_name']
-    description=request.form['Description']
-    category=request.form['category']
-    product_nature=request.form['product_nature']
-    price=request.form['price']
-    price_terms=request.form['price_terms']
-    seller_id=current_user.id
-    new_product=Products(name=name,description=description,image_url=image_url,category=category,product_nature=product_nature,price=price,price_terms=price_terms,seller_id=seller_id)
-    db.session.add(new_product)
-    db.session.commit()
-    return redirect(url_for('dashboard'))
-app.jinja_env.globals.update(proadd=proadd)
+
 
 if __name__=='__main__':
     with app.app_context():
