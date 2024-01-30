@@ -40,6 +40,8 @@ class Products(db.Model,UserMixin):
     price=db.Column(db.String(50),nullable=False)
     price_terms=db.Column(db.String(50),nullable=False)
     seller_id=db.Column(db.Integer,db.ForeignKey('user.id'))
+    
+    db.create_all()
 
 @app.route('/')
 
