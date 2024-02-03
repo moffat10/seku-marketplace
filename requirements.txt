@@ -1,5 +1,5 @@
 flask
 gunicorn
-flask_sqlalchemy
-flask_login
+flask-sqlalchemy
+flask-login
 pymysql
