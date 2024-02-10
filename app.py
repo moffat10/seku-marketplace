@@ -59,7 +59,7 @@ def create_seller():
         location=request.form['location']
         phone_number=request.form['phone_number']
         password=request.form['password']
-        hashed_password=generate_password_hash(password,method='sha256')
+        hashed_password=generate_password_hash(password)
         new_user=User(username=username,password=hashed_password,phone_number=phone_number,location=location)
         existing_username=User.query.filter_by(username=username).first()
         existing_phone=User.query.filter_by(phone_number=phone_number).first()
