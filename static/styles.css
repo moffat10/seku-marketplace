@@ -79,16 +79,16 @@ a{
     margin-bottom: 10px;
 }
 .product-condition{
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 10px;
 }
 .seller-contact{
-    font-size: 14px;
+    font-size: 16px;
     color: #3498db;
 }
 .alert{
     padding: 15px;
-    background-color:#c5360ad3;
+    background-color:aqua;
     color:white;
     margin-bottom: 15px;
 

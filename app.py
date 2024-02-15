@@ -39,6 +39,8 @@ class Products(db.Model,UserMixin):
     product_nature=db.Column(db.String(50),nullable=False)
     price=db.Column(db.String(50),nullable=False)
     price_terms=db.Column(db.String(50),nullable=False)
+    seller_name=db.Column(db.String(50),nullable=False)
+    seller_contact=db.Column(db.String(50),nullable=False)
     seller_id=db.Column(db.Integer,db.ForeignKey('user.id'))
     
 
@@ -48,11 +50,11 @@ def home():
     all_products=Products.query.all()
     return render_template('home.html',all_products=all_products)
 
-@app.route('/templates/categories')
+@app.route('/categories')
 def cat_return():
     return render_template('categories.html')
 
-@app.route('/templates/create-seller',methods=['GET','POST'])
+@app.route('/create-seller',methods=['GET','POST'])
 def create_seller():
     if request.method=='POST':
         username=request.form['username']
@@ -78,7 +80,7 @@ def create_seller():
 
 
 
-@app.route('/templates/login',methods=['GET','POST'])
+@app.route('/login',methods=['GET','POST'])
 def login():
     if request.method=='POST':
         username=request.form['username']
@@ -121,14 +123,16 @@ def addproduct():
         price=request.form['price']
         price_terms=request.form['price_terms']
         seller_id=current_user.id
-        new_product=Products(name=name,description=description,image_url=image_url,category=category,product_nature=product_nature,price=price,price_terms=price_terms,seller_id=seller_id)
+        seller_name=current_user.username
+        seller_contact=current_user.phone_number
+        new_product=Products(name=name,description=description,image_url=image_url,category=category,product_nature=product_nature,price=price,price_terms=price_terms,seller_id=seller_id,seller_name=seller_name,seller_contact=seller_contact)
         db.session.add(new_product)
         db.session.commit()
         flash('Product Added successfully')
         return redirect(url_for('dashboard'))
     return render_template('addproduct.html')
 
-@app.route('/templates/advertise')
+@app.route('/advertise')
 def advertise():
     return render_template('advert.html')
 

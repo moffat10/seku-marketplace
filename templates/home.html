@@ -11,7 +11,8 @@
             margin:0,auto,0,auto;
             text-align: center;
             background: #0ec545;
-            border-radius: 35px;
+            border-radius: 25px;
+            padding-bottom: 0%;
 
         }
         h1{
@@ -21,11 +22,11 @@
         }
         #moto{
             margin: 0px,auto,0px,auto;
-            color:#0ec545;
+            color:green;
             text-align: center;
             font-family: 'Courier New', Courier, monospace;
             font-style: italic;
-            border-radius: 30px;
+            border-radius: 25px;
             background-color: burlywood;
         }
         button{
@@ -45,24 +46,28 @@
     </style>
 </head>
 <body>
-    <div id="container"><h1 style="font-size:50px;">SEKU VIRTUAL MARKET<h1></div>
-    <div id="moto"><nav><h2>Comrade's choice<h2></nav></div>
+    <div id="container"><h1 style="font-size:30px;">SEKU VIRTUAL MARKET</h1><div id="moto" style="font-size:25px;"><nav><h3>Comrade's choice<h3></nav></div></div>
+    
 
 <div style="margin: 0,auto,0,auto; text-align: center; font-size:x-large; background-color: blanchedalmond;"><br>
-    <a href="\templates\categories"><button>Category</button></a>  |    <a href="\templates\create-seller"><button>Create account</button></a>  |  <a href="\templates\login"><button>Login</button></a>  |  <a href="\templates\advertise"><button>Advertise</button></a>
+    <a href="\categories"><button>Category</button></a>  |    <a href="\create-seller"><button>Create account</button></a>  |  <a href="\login"><button>Login</button></a>  |  <a href="\advertise"><button>Advertise</button></a>
 </div><br><br>
-<div style="margin: 10%,auto,10%,auto; text-align: center; background-color: rgb(204, 120, 17);padding: 20px;">
-    <img src="static\adv.JPG" alt="advert" class="ad-image">
+<div style="margin: 10%,auto,10%,auto; text-align: center; background-color:rgb(233, 207, 173); padding: 20px; border-radius: 1%;">
+    <img src="static\adv.JPG" alt="advert" class="ad-image"></div>
     
 {%for product in all_products%}
+
 <div class="product-container">
 <div class="product-card">
     <img src="{{product.image_url}}" alt="image" class="product-image">
     <div class="product-name">{{product.name}}</div>
-    <div class="product-price">Ksh {{product.price}}</div>
-    <div class="product-condition">{{product.product_nature}}</div>
-    <div class="seller-contact">{{product.price_terms}}</div>
-    <div class="seller-contact">{{product.category}}</div>
+    <div class="seller-contact">Description:</div>
+    <div class="product-condition">{{product.description}}</div>
+    <div class="product-condition">Condition: {{product.product_nature}}</div>
+    <div class="product-price">Price Ksh: {{product.price}}</div>
+    <div class="seller-contact">Category: {{product.category}}</div>
+    <div class="seller-contact">Terms: {{product.price_terms}}</div>
+    <div class="seller-contact">seller: {{product.seller_name}}</div>
     <a href=""><button>Whatsapp</button></a> | <button>Call or Text</button>
 </div>
 </div>
