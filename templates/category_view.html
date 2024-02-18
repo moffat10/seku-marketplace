@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+       
+        a{
+            font-family:Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"><a href="/"><button>HOME</button></a><a href="\categories"><button> Category</button></a></div>
+
+    {%for product in viewed%}
+    
+    <div class="product-container">
+    <div class="product-card">
+        <img src="{{product.image_url}}" alt="image" class="product-image">
+        <div class="product-name">{{product.name}}</div>
+        <div class="seller-contact">Description:</div>
+        <div class="product-condition">{{product.description}}</div>
+        <div class="product-condition">Condition: {{product.product_nature}}</div>
+        <div class="product-price">Price Ksh: {{product.price}}</div>
+        <div class="seller-contact">Category: {{product.category}}</div>
+        <div class="seller-contact">Terms: {{product.price_terms}}</div>
+        <div class="seller-contact">seller: {{product.seller_name}}</div>
+        <a href="https://wa.me/{{'254'+ product.seller_contact}}"><button>Chat Whatsapp</button></a> 
+    </div>
+    </div>
+    {%endfor%}
+    
+</body>
+</html>

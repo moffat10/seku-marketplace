@@ -45,7 +45,6 @@ class Products(db.Model,UserMixin):
     
 
 @app.route('/')
-
 def home():
     all_products=Products.query.all()
     return render_template('home.html',all_products=all_products)
@@ -135,8 +134,16 @@ def addproduct():
 @app.route('/advertise')
 def advertise():
     return render_template('advert.html')
+ 
+@app.route('/category/<cat>',methods=['POST','GET'])
+def cat_view(cat):
+    viewed=Products.query.filter_by(category=cat)
+    return render_template('category_view.html',viewed=viewed)
 
-
+@app.route('/product/<id>')
+def proview(id):
+    product_description=Products.query.filter_by(id=id)
+    return render_template('product.html',product_description=product_description)
 
 if __name__=='__main__':  
     with app.app_context():

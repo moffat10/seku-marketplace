@@ -58,19 +58,18 @@
 {%for product in all_products%}
 
 <div class="product-container">
+
 <div class="product-card">
+    <a href="/product/{{product.id}}">
     <img src="{{product.image_url}}" alt="image" class="product-image">
-    <div class="product-name">{{product.name}}</div>
-    <div class="seller-contact">Description:</div>
-    <div class="product-condition">{{product.description}}</div>
+    <div class="product-name">{{product.name}}</div></a>
     <div class="product-condition">Condition: {{product.product_nature}}</div>
-    <div class="product-price">Price Ksh: {{product.price}}</div>
-    <div class="seller-contact">Category: {{product.category}}</div>
-    <div class="seller-contact">Terms: {{product.price_terms}}</div>
-    <div class="seller-contact">seller: {{product.seller_name}}</div>
-    <a href=""><button>Whatsapp</button></a> | <button>Call or Text</button>
+    <div class="product-price">Price Ksh: {{product.price}} {{product.price_terms}}</div>
+    <div class="seller-contact">Seller: {{product.seller_name}} <a href="https://wa.me/{{'254'+ product.seller_contact}}"><button>Chat Whatsapp</button></a> </div>
+    
 </div>
-</div>
+
+</div> 
 {%endfor%}
 <div style="background-color: burlywood;color: royalblue;text-align: center;" font="x-large"><p>
     About developer: <a href="">MSO</a>
