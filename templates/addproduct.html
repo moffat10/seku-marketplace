@@ -8,16 +8,19 @@
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
+    
     <div id="header"> <h1><a href="{{url_for('dashboard')}}"><button>Dashboard</button></a> | Add product</h1></div>
-<div id="data">
+    <br>
+<div class="product-container">
+<div class="holder">
+<div class="login-container">
     <form method="POST" enctype="multipart/form-data">
-       Product name: <input type="text" placeholder="product name and model" name="product_name" required> <br><br>
-       Product nature:
+       <input type="text" placeholder="Product Name" name="product_name" required> <br><br>
        <select name="product_nature" id="product_nature" required>
         <option value="New">New</option>
         <option value="Second hand">Second hand</option>
     </select><br><br>
-       Category:
+       Category
        <select name="category" id="category" required>
         <option value="Phones">Phones</option>
         <option value="Laptops">Laptops</option>
@@ -30,19 +33,19 @@
         <option value="Bicycles and motorcycles">Bicycles and motorcycles</option>
         <option value="Food">Food</option>
         <option value="Others">Others</option>
-    </select><br><br>
-       Description: <br>
-       <textarea id="Description" name="Description" rows="4" placeholder="Briefly describe what you are selling"></textarea><br><br>
-       Price (Ksh): <input type="number" name="price" min="5" max="100000" required><br><br>
-       Price terms:
+    </select>
+       Description 
+       <textarea id="Description" name="Description" rows="2" placeholder="Briefly describe features of what you are selling"></textarea><br><br>
+       Price (Ksh): <input type="number" name="price" min="5" max="100000" required>
        <select name="price_terms" id="price_terms" required>
         <option value="Fixed">Fixed</option>
         <option value="Negotiable">Negotiable</option>
-    </select><br>
-       Product image: <input type="file" id="product_image" name="product_image" accept="image/*"> <br><br>
-    <button type="submit">Post</button>
+    </select><br><br>
+       Product image: <input type="file" id="product_image" name="product_image" accept="image/*"><br><br>
+    <button type="submit" class="sub-btn">Post</button>
     </form>
 </div>
-    
+</div>
+</div>
 </body>
 </html>

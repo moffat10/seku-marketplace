@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 import os
 
 app=Flask(__name__)
-app.config['SECRET_KEY']='saystheking'
+app.config['SECRET_KEY']=os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///database.db'
 app.config['UPLOAD_FOLDER']='static/files'
 db=SQLAlchemy(app)
@@ -46,7 +46,7 @@ class Products(db.Model,UserMixin):
 
 @app.route('/')
 def home():
-    all_products=Products.query.all()
+    all_products=Products.query.limit(8).all()
     return render_template('home.html',all_products=all_products)
 
 @app.route('/categories')

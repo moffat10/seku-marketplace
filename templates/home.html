@@ -43,6 +43,33 @@
             font-family: monospace;
             font-weight: bold;
         }
+        .container {
+            display: table;
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        .cell {
+            display: table-cell;
+            vertical-align: top;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .item {
+            width: calc(50% - 20px);
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            box-sizing: border-box;
+        }
+        
+   
     </style>
 </head>
 <body>
@@ -55,22 +82,28 @@
 <div style="margin: 10%,auto,10%,auto; text-align: center; background-color:rgb(233, 207, 173); padding: 20px; border-radius: 1%;">
     <img src="static\adv.JPG" alt="advert" class="ad-image"></div>
     
-{%for product in all_products%}
 
-<div class="product-container">
-
-<div class="product-card">
-    <a href="/product/{{product.id}}">
-    <img src="{{product.image_url}}" alt="image" class="product-image">
-    <div class="product-name">{{product.name}}</div></a>
-    <div class="product-condition">Condition: {{product.product_nature}}</div>
-    <div class="product-price">Price Ksh: {{product.price}} {{product.price_terms}}</div>
-    <div class="seller-contact">Seller: {{product.seller_name}} <a href="https://wa.me/{{'254'+ product.seller_contact}}"><button>Chat Whatsapp</button></a> </div>
+<div class="container">
+    
+    <div class="cell">
+        <div class="content">
+            {%for product in all_products%}
+            <div class="item">
+                    <a href="/product/{{product.id}}">
+                    <div class="ad-image"><img src="{{product.image_url}}" alt="image" class="product-image"></div>
+                    <div class="product-name">{{product.name}}</div></a>
+                    <div class="product-condition">Condition: {{product.product_nature}}</div>
+                    <div class="product-price">Price Ksh: {{product.price}} {{product.price_terms}}</div>
+                    <div class="seller-contact">Seller: {{product.seller_name}} <a href="https://wa.me/{{'254'+ product.seller_contact}}"><button>Chat Whatsapp</button></a> </div>
+                    
+                </div>
+                {%endfor%}
+        </div>
+    </div>
     
 </div>
 
-</div> 
-{%endfor%}
+
 <div style="background-color: burlywood;color: royalblue;text-align: center;" font="x-large"><p>
     About developer: <a href="https://moffatstephenokemwa.onrender.com">MSO</a>
 </p></div>
