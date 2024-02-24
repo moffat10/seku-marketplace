@@ -131,8 +131,9 @@ def dashboard():
 def addproduct():
     if request.method=="POST":
         uploaded_file=request.files["product_image"]
-        filename=secure_filename(uploaded_file.filename)
-        uploaded_file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+        code=random.randint(1000,9999)
+        filename=secure_filename(str(code) + uploaded_file.filename)
+        uploaded_file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename ))
         image_url='/static/files/'+filename
         name=request.form['product_name']
         description=request.form['Description']
