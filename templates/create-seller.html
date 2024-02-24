@@ -19,6 +19,7 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
+        <br><br>
     <div class="holder">
     <div class="login-container">
         <form method="POST">
@@ -30,6 +31,7 @@
                 <option value="Main Campus">MAIN CAMPUS</Main></option>
             </select><br>
             <input type="text" placeholder="Username" name="username" required><br><br>
+            <input type="email" placeholder="Email" name="email" required><br><br>
             <input type="password" placeholder="Password" name="password" minlength="4" required><br><br>
             <button type="submit" class="sub-btn">Submit</button><br><br>
            
@@ -39,7 +41,7 @@
 </div>
     <br>
     <div id="fog">
-        <a href="">Forgot password?</a><br>
+        <a href="\reset">Forgot password?</a><br>
         Already have an account? <a href="\login">Login</a>
     </div>
     

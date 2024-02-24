@@ -168,6 +168,7 @@ input[type=number]{
     text-align: center;
 }
 .login-container input[type="text"],
+.login-container input[type="email"],
 .login-container input[type="password"],
 .login-container input[type="tel"],
 .login-container select,
