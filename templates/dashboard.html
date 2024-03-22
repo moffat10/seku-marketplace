@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/styles2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+        function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+    </script>
     <style>
         .container {
             display: table;
@@ -34,7 +46,27 @@
     </style>
 </head>
 <body>
-    <div id="header"><h1>Dashboard      | {{ current_user.username }} <a href="{{url_for('logout')}}" style="align-items: self-end;"> <div class="logoutbt"><button class="logoutbtn">Log out</button></div></a> </h1></div>
+    
+    
+    <div id="header"><div id="header"><h2>Dashboard | {{ current_user.username }} </h2>
+       
+    </div>
+    <div class="topnav">
+        <a href="/messages" class="active">Messages</a>
+        <!-- Navigation links (hidden by default) -->
+        <div id="myLinks">
+          <a href="{{url_for('profile')}}">Profile</a>
+          <a href="{{url_for('mycart')}}">My cart</a>
+          <a href="{{url_for('myproducts')}}">My products</a>
+          <a href="{{url_for('history')}}">History</a>
+          <a href="{{url_for('logout')}}">Logout</a>
+        </div>
+        <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div><br>
+</div>
     {% with messages=get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -45,21 +77,45 @@
                 {% endfor %}
             {% endif %}
     {% endwith %}
-    <h1 id="fog">My Products</h1>
+ 
 
     <div class="container">
     
         <div class="cell">
             <div class="content">
                 {%for product in user_products%}
-                    <div class="item">
-                        <div class="ad-image"><img src="{{product.image_url}}" alt="image" class="product-image"></div>
-                        <div class="product-name">{{product.name}}</div>
-                        <div class="product-condition">Condition: {{product.product_nature}}</div>
-                        <div class="product-price">Price Ksh: {{product.price}} {{product.price_terms}}</div>
-                        <div class="seller-contact">{{product.price_terms}} </div>
-                        
-                    </div>
+                
+                        <div class="item">
+                            <a href="/product/{{product.id}}">
+                                <div class="ad-image"><img src="{{product.image_url}}" alt="image" class="product-image"></div>
+                                <div class="product-name">{{product.name}}</div></a>
+                                <div class="product-condition">Condition: {{product.product_nature}}</div>
+                                <div class="product-price">Price Ksh: {{product.price}}</div>
+                                {%if product.seller_id==current_user.id%}
+                                <div class="seller-contact">Seller:You</div>
+                                {%else%}
+                                <div class="seller-contact">Seller: {{product.seller_name}}</div>
+                                <div class="seller-contact"><a href="/chat/{{product.id}}"><button>Chat with {{product.seller_name}}</button></a></div>
+                                {%endif%} <br>
+                                
+                                <form method="post">
+                                    <input type="hidden" name="product-image" value="{{product.image_url}}">
+                                    <input type="hidden" name="product-name" value="{{product.name}}">
+                                    <input type="hidden" name="product-condition" value="{{product.Condition}}">
+                                    <input type="hidden" name="product-price" value="{{product.price}}">
+                                    <input type="hidden" name="seller-contact" value="{{product.seller_contact}}">
+                                    <input type="hidden" name="product-description" value="{{product.description}}">
+                                    <input type="hidden" name="product-category" value="{{product.category}}">
+                                    <input type="hidden" name="seller-name" value="{{product.seller_name}}">
+                                    {%if product.seller_id==current_user.id%}
+                                    <div class="seller-contact"><a href="/delete/{{product.id}}">Delete</a></div>
+                                    {%else%}
+                                    <div class="seller-contact"><button type="submit">Add to cart</button></div>
+                                    {%endif%}
+                                </form>
+                            
+                        </div>
+                       
                     {%endfor%}
             </div>
         </div>
@@ -69,6 +125,13 @@
    <div class="product-container">
         <a href="{{url_for('addproduct')}}"><button>Add</button></a>
    </div>
-    
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
 </body>
 </html>

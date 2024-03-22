@@ -27,9 +27,9 @@
         <div class="product-condition">Condition: {{product.product_nature}}</div>
         <div class="product-price">Price Ksh: {{product.price}}</div>
         <div class="seller-contact">Category: {{product.category}}</div>
-        <div class="seller-contact">Terms: {{product.price_terms}}</div>
+        
         <div class="seller-contact">seller: {{product.seller_name}}</div>
-        <a href="https://wa.me/{{'254'+ product.seller_contact}}"><button>Chat Whatsapp</button></a> 
+        <div class="seller-contact"><a href="\login"><button type="submit">Add to cart</button></a></div>
     </div>
     </div>
     {%endfor%}

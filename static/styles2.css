@@ -50,3 +50,11 @@
     color: #3498db;
     text-align: center;
 }
+#data{
+    background-color: bisque;
+    text-align: center;
+    color:#350fe0;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: medium;
+    border-radius: 20px;
+}

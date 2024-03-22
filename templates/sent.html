@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+       
+        a{
+            font-family:Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    {% with messages=get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <h4>{{message}}</h4>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+    <div id="container"><a href="/dashboard"><button>Dashboard</button></a> <h2><a href="/messages">Inbox</a> | Sent</h2></div>
+    {% for message in my_sent_messages %}
+    <div class="product-container"><h3>To:{{message.seller_name}}</h3><div id="fog" style="text-align: left;"> {{message.message}}</div><a href="/deletemsg/{{message.id}}">Delete</a></div><br>
+    <hr style="color:green; height: 5px; background-color: green; border-radius: 20px;">
+    {%endfor%}
+    
+</body>
+</html>

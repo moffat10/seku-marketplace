@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
+    <title>Cart</title>
     <link rel="stylesheet" href="/static/styles.css">
     <style>
        
@@ -14,9 +14,9 @@
     </style>
 </head>
 <body>
-    <div id="container"><a href="/"><button>HOME</button></a><a href="\categories"><button> Category</button></a></div>
-    <h1 id="fog">Details</h1>
-    {%for product in product_description%}
+    <div id="container"><h2>My shopping cart | <a href="/dashboard"><button>Dashboard</button></a></h2></div>
+
+    {%for product in usershopping%}
     
     <div class="product-container">
     <div class="product-card">
@@ -28,7 +28,7 @@
         <div class="product-price">Price Ksh: {{product.price}}</div>
         <div class="seller-contact">Category: {{product.category}}</div>
         <div class="seller-contact">seller: {{product.seller_name}}</div>
-        <a href="https://wa.me/{{'254'+ product.seller_contact}}"><button>Chat Whatsapp</button></a> 
+        <a href="/remove/{{product.id}}"><button>Remove</button></a> <a href="/pay/{{product.id}}"><button>Order</button></a> 
     </div>
     </div>
     {%endfor%}

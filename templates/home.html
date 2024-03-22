@@ -93,17 +93,24 @@
                     <div class="ad-image"><img src="{{product.image_url}}" alt="image" class="product-image"></div>
                     <div class="product-name">{{product.name}}</div></a>
                     <div class="product-condition">Condition: {{product.product_nature}}</div>
-                    <div class="product-price">Price Ksh: {{product.price}} {{product.price_terms}}</div>
-                    <div class="seller-contact">Seller: {{product.seller_name}} <a href="https://wa.me/{{'254'+ product.seller_contact}}"><button>Chat Whatsapp</button></a> </div>
-                    
+                    <div class="product-price">Price Ksh: {{product.price}}</div>
+                    <div class="seller-contact">Seller: {{product.seller_name}}</div>
+                    <form method="post">
+                        <div class="seller-contact"><button type="submit">Add to cart</button></div>
+                    </form>
                 </div>
                 {%endfor%}
         </div>
     </div>
     
 </div>
-
-
+<br>
+<div id="data">
+    Contact Us:
+    <p>Email: <a href="">sekumarket@gmail.com</a></p>
+    <p>Whatsapp: <a href="https://wa.me/{{254111240704}}">Whatsapp</a></p>
+</div>
+<br>
 <div style="background-color: burlywood;color: royalblue;text-align: center;" font="x-large"><p>
     About developer: <a href="https://moffatstephenokemwa.onrender.com">MSO</a>
 </p></div>
