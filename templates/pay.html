@@ -30,6 +30,10 @@
     <div class="login-container">
         <form method="POST">
             Purchasing: {{product.name}}
+            <input type="hidden" name="productname" value="{{product.name}}">
+            <input type="hidden" name="seller_id" value="{{product.seller_id}}">
+            <input type="hidden" name="seller_name" value="{{product.seller_name}}">
+            <input type="hidden" name="seller_contact" value="{{product.seller_contact}}">
             <div id="cat"><h2>Shipping info</h2></div><br>
             Delivery Location:
             <select name="dlocation" id="location" required >
