@@ -464,17 +464,19 @@ def pay(proid):
 @app.route('/lnmocallback', methods=['POST'])
 def lnmocallback():
     data = request.get_json()
+    global s_code
     global mref
-    mref=data['ResultCode']
+    s_code=data(['body']['stkCallBack']['ResultCode'])
+    mref=data(['body']['stkCallBack']['CallbackMetadata']['MpesaReceiptNumber'])
     return 'ok'
 #handle reponse
 @app.route('/payment')
 @login_required
 def payment():
-    if mref=='1032':
+    if s_code=='1032':
         flash('Transaction cancelled!')
         return redirect(url_for('pay'))
-    elif mref=='0':
+    elif s_code=='0':
         flash('Transaction Successful!')
         return redirect(url_for('paid',mpesaref=mref))
     else:
