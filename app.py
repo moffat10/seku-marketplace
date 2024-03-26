@@ -444,12 +444,12 @@ def pay(proid):
             "PartyA": "254759187700",
             "PartyB": "174379",
             "PhoneNumber": "254" + str(number),
-            "CallBackURL":"https://sekuvirtualmarket.onrender.com/lnmo_callback",
+            "CallBackURL":"https://sekuvirtualmarket.onrender.com/lnmocallback",
             "AccountReference": "SekuVm",
             "TransactionDesc": "HelloTest",
             "Amount": "1"
         }
-        res = requests.post(endpoint, json=data, headers=headers)
+        res = requests.post(endpoint, json=data, headers=headers).json()
         if res['ResponseCode']=='0':
             return redirect(url_for('incoming'))
         else:
@@ -458,10 +458,10 @@ def pay(proid):
     return render_template('pay.html',cart=cart)
 
 #callback url
-@app.route('/lnmo_callback', methods=['POST'])
-def lnmo_callback():
+@app.route('/lnmocallback', methods=['POST'])
+def lnmocallback():
     data = request.get_json()
-    time.sleep(4)
+    time.sleep(1)
     if data['ResultCode']=='1032':
         flash('Transaction cancelled!')
         return redirect(url_for("mycart"))
@@ -469,7 +469,7 @@ def lnmo_callback():
         flash('Transaction successful!')
         mpesaref=data['MpesaReceiptNumber']
         return redirect(url_for('paid',mpesaref=mpesaref))
-    return render_template('redirect')
+    return render_template('redirect.html')
 
 
 #process transaction
