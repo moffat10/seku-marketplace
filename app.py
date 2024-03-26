@@ -473,10 +473,11 @@ def lnmocallback():
 @app.route('/payment')
 @login_required
 def payment():
-    if s_code=='1032':
+    code=s_code
+    if code=='1032':
         flash('Transaction cancelled!')
         return redirect(url_for('pay'))
-    elif s_code=='0':
+    elif code=='0':
         flash('Transaction Successful!')
         return redirect(url_for('paid',mpesaref=mref))
     else:
