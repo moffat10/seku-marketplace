@@ -474,7 +474,7 @@ def incoming():
 
 #process transaction
 @app.route('/paid/<mpesaref>')
-@login_required()
+@login_required
 def paid(mpesaref):
     delivery=str(dlocation)
     buyer_id=buyerid
