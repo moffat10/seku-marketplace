@@ -419,7 +419,7 @@ def pay(proid):
         seller_id=request.form['seller_id']
         seller_name=request.form['seller_name']
         buyer_id=current_user.id 
-        buyer_name=current_user.name
+        buyer_name=current_user.username
         seller_contact=request.form['seller_contact']
         global dlocation
         global address1
