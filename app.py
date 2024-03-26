@@ -402,22 +402,7 @@ def pay(proid):
     getAccesstoken()
     time.sleep(4)
     cart=Shoppingkart.query.filter_by(id=proid)
-    global dlocation
-    global address1
-    global productname
-    global sellerid
-    global sellername
-    global sellercontact
-    global buyerid 
-    global buyername
-    dlocation=delivery
-    address1=address
-    productname=product_name
-    sellerid=seller_id
-    sellername=seller_name
-    sellercontact=seller_contact
-    buyerid=buyer_id
-    buyername=buyer_name
+    
     endpoint = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
     if request.method=='POST':
         access_token = getAccesstoken()
@@ -436,6 +421,22 @@ def pay(proid):
         buyer_id=current_user.id 
         buyer_name=current_user.name
         seller_contact=request.form['seller_contact']
+        global dlocation
+        global address1
+        global productname
+        global sellerid
+        global sellername
+        global sellercontact
+        global buyerid 
+        global buyername
+        dlocation=delivery
+        address1=address
+        productname=product_name
+        sellerid=seller_id
+        sellername=seller_name
+        sellercontact=seller_contact
+        buyerid=buyer_id
+        buyername=buyer_name
         data = {
             "BusinessShortCode": "174379",
             "Password": password1,
