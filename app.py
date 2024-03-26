@@ -449,7 +449,9 @@ def pay(proid):
             "TransactionDesc": "HelloTest",
             "Amount": "1"
         }
-        res = requests.post(endpoint, json=data, headers=headers).json()
+        res = requests.post(endpoint, json=data, headers=headers)
+        time.sleep(3)
+        res=res.json()
         if res['ResponseCode']=='0':
             return redirect(url_for('lnmocallback'))
         else:
