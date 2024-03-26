@@ -402,13 +402,14 @@ def pay(proid):
     getAccesstoken()
     cart=Shoppingkart.query.filter_by(id=proid)
     
-    endpoint = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+    
     if request.method=='POST':
         access_token = getAccesstoken()
         headers = {"Authorization": "Bearer %s" % access_token}
         Timestamp = datetime.now()
         passkey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
         times = Timestamp.strftime("%Y%m%d%H%M%S")
+        endpoint = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
         password = "174379" + passkey + times
         password1 = base64.b64encode(password.encode("utf-8")).decode("utf-8")
         number=request.form['number']
@@ -463,15 +464,22 @@ def pay(proid):
 @app.route('/lnmocallback', methods=['POST'])
 def lnmocallback():
     data = request.get_json()
-    time.sleep(1)
-    if data['ResultCode']=='1032':
+    global mref
+    mref=data['ResultCode']
+    return 'ok'
+#handle reponse
+@app.route('/payment')
+@login_required
+def payment():
+    if mref=='1032':
         flash('Transaction cancelled!')
-        return redirect(url_for('mycart'))
-    elif data['ResultCode']=='0':
-        flash('Transaction successful!')
-        mpesaref=data['MpesaReceiptNumber']
-        return redirect(url_for('paid',mpesaref=mpesaref))
-    return render_template('redirect.html')
+        return redirect(url_for('pay'))
+    elif mref=='0':
+        flash('Transaction Successful!')
+        return redirect(url_for('paid',mpesaref=mref))
+    else:
+        flash('An error occurred!')
+        return redirect(url_for('pay'))
 
 
 #process transaction
