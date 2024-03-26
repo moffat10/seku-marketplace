@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id="header"><a href="/messages">Inbox</a> | <a href="/sent">Sent</a></div>
-    <div id="header"><h3>Message To:</h3></div>
+    <div id="header"><h3>Message To: {{name}}</h3></div>
    
         {% with messages=get_flashed_messages() %}
             {% if messages %}

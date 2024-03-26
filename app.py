@@ -6,7 +6,13 @@ from flask_login import LoginManager,login_required,logout_user,login_user,UserM
 from werkzeug.utils import secure_filename
 import os
 import random
+from datetime import datetime
+import time
+import requests
+from requests.auth import HTTPBasicAuth
+import base64
 
+import string
 app=Flask(__name__)
 
 #configure app and mail server
@@ -98,13 +104,27 @@ class Chatstable(db.Model,UserMixin):
     seller_id=db.Column(db.String(50),nullable=False)
     seller_name=db.Column(db.String(50),nullable=False)
     buyer_name=db.Column(db.String(50),nullable=False)
+    time=db.Column(db.String(50),nullable=False)
+    order_number=db.Column(db.String(50),nullable=False)
 
+#transaction table
+class Transactions(db.Model,UserMixin):
+    id=db.Column(db.Integer,primary_key=True)
+    delivery=db.Column(db.String(50),nullable=False)
+    buyer_id=db.Column(db.String(50),nullable=False)
+    seller_id=db.Column(db.String(50),nullable=False)
+    seller_name=db.Column(db.String(50),nullable=False)
+    buyer_name=db.Column(db.String(50),nullable=False)
+    seller_contact=db.Column(db.String(50),nullable=False)
+    product_name=db.Column(db.String(50),nullable=False)
+    mpesaref=db.Column(db.String(50),nullable=False)
+    
 #home route
 @app.route('/',methods=['POST','GET'])
 def home():
     all_products=Products.query.limit(8).all()
     if request.method=='POST':
-        flash('Login to buy!')
+        flash('Login first!')
         return redirect(url_for('login'))
     return render_template('home.html',all_products=all_products)
 
@@ -321,25 +341,23 @@ def deletemsg(msgid):
     flash('Deleted!')
     return redirect(url_for('sent'))
 
-@app.route('/pay/<proid>')
-@login_required
-def pay(proid):
-    cart=Shoppingkart.query.filter_by(id=proid)
-    return render_template('pay.html',cart=cart)
 
 @app.route('/messages')
 @login_required
 def messages():
-    my_recieved_messages=Chatstable.query.filter_by(seller_id=current_user.id)
+    my_recieved_messages=Chatstable.query.filter_by(seller_id=current_user.id).order_by(Chatstable.id.desc())
+    
     return render_template('messages.html',my_recieved_messages=my_recieved_messages)
 @app.route('/sent')
 @login_required
 def sent():
-    my_sent_messages=Chatstable.query.filter_by(buyer_id=current_user.id)
+    my_sent_messages=Chatstable.query.filter_by(buyer_id=current_user.id).order_by(Chatstable.id.desc())
     return render_template('sent.html',my_sent_messages=my_sent_messages)
 @app.route('/chat/<product>',methods=['POST','GET'])
 @login_required
 def chat(product): 
+    product_details=Products.query.filter_by(id=product).first()
+    name=product_details.seller_name
     if request.method=="POST":
         product_details=Products.query.filter_by(id=product).first()
         message=request.form['message']
@@ -347,16 +365,21 @@ def chat(product):
         seller_id=product_details.seller_id
         buyer_name=current_user.username
         seller_name=product_details.seller_name
-        new_message=Chatstable(message=message,buyer_id=buyer_id,seller_id=seller_id,buyer_name=buyer_name,seller_name=seller_name)
+        timestamp=datetime.now()
+        time=timestamp.strftime("%H:%M")
+        new_message=Chatstable(message=message,buyer_id=buyer_id,seller_id=seller_id,buyer_name=buyer_name,seller_name=seller_name,time=time)
         db.session.add(new_message)
         db.session.commit()
         flash('Sent!')
         return redirect(url_for('sent'))
-    return render_template('compose.html')
+    return render_template('compose.html',name=name)
 
 @app.route('/replymsg/<id>',methods=['POST','GET'])
 @login_required
 def replymsg(id): 
+    reciever_details=Chatstable.query.filter_by(id=id).first()
+    name=reciever_details.buyer_name
+    mesg=reciever_details.message
     if request.method=="POST":
         reciever_details=Chatstable.query.filter_by(id=id).first()
         message=request.form['message']
@@ -364,13 +387,130 @@ def replymsg(id):
         seller_id=reciever_details.buyer_id
         buyer_name=current_user.username
         seller_name=reciever_details.buyer_name
-        new_message=Chatstable(message=message,buyer_id=buyer_id,seller_id=seller_id,buyer_name=buyer_name,seller_name=seller_name)
+        timestamp=datetime.now()
+        time=timestamp.strftime("%H:%M")
+        new_message=Chatstable(message=message,buyer_id=buyer_id,seller_id=seller_id,buyer_name=buyer_name,time=time,seller_name=seller_name)
         db.session.add(new_message)
         db.session.commit()
         flash('Message sent successfully!')
         return redirect(url_for('sent'))
-    return render_template('reply.html')
+    return render_template('reply.html',name=name,mesg=mesg)
 
+@app.route('/pay/<proid>', methods=['POST','GET'])
+@login_required
+def pay(proid):
+    
+    cart=Shoppingkart.query.filter_by(id=proid)
+    number=request.form['number']
+    delivery=request.form['dlocation']
+    address=request.form['address']
+    product_name=request.form['productname']
+    seller_id=request.form['seller_id']
+    seller_name=request.form['seller_name']
+    buyer_id=current_user.id 
+    buyer_name=current_user.name
+    seller_contact=request.form['seller_contact']
+    global dlocation
+    global address1
+    global productname
+    global sellerid
+    global sellername
+    global sellercontact
+    global buyerid 
+    global buyername
+    dlocation=delivery
+    address1=address
+    productname=product_name
+    sellerid=seller_id
+    sellername=seller_name
+    sellercontact=seller_contact
+    buyerid=buyer_id
+    buyername=buyer_name
+    
+    endpoint = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+    if request.method=='POST':
+        access_token = getAccesstoken()
+        headers = {"Authorization": "Bearer %s" % access_token}
+        Timestamp = datetime.now()
+        passkey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
+        times = Timestamp.strftime("%Y%m%d%H%M%S")
+        password = "174379" + passkey + times
+        password1 = base64.b64encode(password.encode("utf-8")).decode("utf-8")
+
+        data = {
+            "BusinessShortCode": "174379",
+            "Password": password1,
+            "Timestamp": times,
+            "TransactionType": "CustomerPayBillOnline",
+            "PartyA": "254759187700",
+            "PartyB": "174379",
+            "PhoneNumber": "254" + str(number),
+            "CallBackURL":"https://sekuvirtualmarket.onrender.com/lnmo_callback",
+            "AccountReference": "SekuVm",
+            "TransactionDesc": "HelloTest",
+            "Amount": "1"
+        }
+        res = requests.post(endpoint, json=data, headers=headers)
+        if res['ResponseCode']=='0':
+            return redirect(url_for('lnmo-callback'))
+        else:
+            flash('Request Unsuccessful!')
+    return render_template('pay.html',cart=cart)
+
+#callback url
+@app.route('/lnmo-callback', methods=['POST'])
+def incoming():
+    data = request.get_json()
+    time.sleep(4)
+    if data['ResultCode']=='1032':
+        flash('Transaction cancelled!')
+        return redirect(url_for("mycart"))
+    elif data['ResultCode']=='0':
+        flash('Transaction successful!')
+        mpesaref=data['MpesaReceiptNumber']
+        return redirect(url_for('paid',mpesaref=mpesaref))
+    return render_template('redirect')
+
+
+#process transaction
+@app.route('/paid<mpesaref>')
+@login_required()
+def paid(mpesaref):
+    delivery=str(dlocation)
+    buyer_id=buyerid
+    buyer_name=str(buyername)
+    seller_id=str(sellerid)
+    seller_name=str(sellername)
+    seller_contact=str(sellercontact)
+    product_name=str(productname)
+    
+    code= ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+    integ=random.randint(1000,9999)
+
+    order_number=str(code) + str(integ)
+    mpesaref=mpesaref
+    if mpesaref:
+        new_order=Transactions(delivery=delivery,buyer_id=buyer_id,buyer_name=buyer_name,seller_contact=seller_contact,seller_id=seller_id,seller_name=seller_name,product_name=product_name,mpesaref=mpesaref,order_number=order_number)
+        db.session.add(new_order)
+        db.session.commit()
+        flash("Order placed successfully, wait for delivery.")
+        return redirect(url_for('myorders'))
+    return render_template('paid.html',mpesaref=mpesaref,order_number=order_number)
+
+@app.route('/myorders')
+@login_required
+def myorders():
+    myorders=Transactions.query.filter_by(buyer_id=current_user.id).all()
+    return render_template('myorders.html',myorders=myorders)
+#get mpesa access token
+def getAccesstoken():
+  consumer_key = "2F1rXrdxPotCuFTl3tNpQqoy0mFAiZlbZ2Gb4IiOOXwXoCHc"
+  consumer_secret = "PltOtNCa4odKGGz8mC1ZssdvDaCbz2w1SK1jpEE3MZ506DoAHo32ssoTBzE5hO7g"
+  endpoint = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
+  r = requests.get(endpoint, auth=HTTPBasicAuth(consumer_key, consumer_secret))
+  access_token = r.json()['access_token']
+  time.sleep(4)
+  return access_token
 #start app
 if __name__=='__main__':  
     with app.app_context():

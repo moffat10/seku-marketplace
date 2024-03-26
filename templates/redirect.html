@@ -4,19 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messages</title>
+    <title>Pay</title>
     <link rel="stylesheet" href="/static/styles.css">
-    <style>
-       
-        a{
-            font-family:Arial, Helvetica, sans-serif;
-        }
-    </style>
 </head>
 <body>
-    
-
-    <div id="container"><a href="/dashboard"><button>Dashboard</button></a> <h2><a href="/messages">Inbox</a> | Sent</h2></div>
     {% with messages=get_flashed_messages() %}
     {% if messages %}
         {% for message in messages %}
@@ -27,10 +18,11 @@
         {% endfor %}
     {% endif %}
 {% endwith %}
-    {% for message in my_sent_messages %}
-    <div class="product-container"><h3>To:{{message.seller_name}}</h3><div id="mesg"> {{message.message}} <br> <p>{{message.time}}</p></div><a href="/deletemsg/{{message.id}}">Delete</a></div><br>
-    <hr style="color:green; height: 5px; background-color: green; border-radius: 20px;">
-    {%endfor%}
-    
+    <div id="header"><h3>Please wait while Request is processed!</h3></div>
+    <div id="data">
+        <p>Processing....</p>
+        
+    </div>
+   
 </body>
 </html>

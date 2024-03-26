@@ -27,8 +27,8 @@
 
     <div id="container"><a href="/dashboard"><button>Dashboard</button></a><h2>Inbox | <a href="/sent">Sent</a></h2></div>
     {% for message in my_recieved_messages %}
-    <div class="product-container"><h4>From: {{message.buyer_name}}</h4><div id="fog" >{{message.message}} <br><a href="/replymsg/{{message.id}}"><button>Reply</button></a> </div><a href="/deletemsg/{{message.id}}" style="font-size: medium;">Delete</a></div><br>
-    <hr style="color:green; height: 5px; background-color: green; border-radius: 20px;">
+    <div class="product-container"><h4>From: <br>{{message.buyer_name}}  </h4><div id="mesg" >{{message.message}} <br><p>{{message.time}}</p> </div><a href="/replymsg/{{message.id}}"><button>Reply</button></a> <a href="/deletemsg/{{message.id}}" style="font-size: medium;">Delete</a></div> <br>
+    <hr style="color:green; height: 3px; background-color: green; border-radius: 20px;">
     
     {%endfor%}
     

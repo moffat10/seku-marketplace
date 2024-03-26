@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+       
+        a{
+            font-family:Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"><h1> My Orders</h1></div>
+    {%for order in myorders%}
+    
+    <div id="cat">Order No: {{order.order_number}} Product: {{order.product_name}}  <a href=""><button>Confirm delivery</button></a></div><br>
+    <br>
+</body>
+</html>

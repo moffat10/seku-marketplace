@@ -10,7 +10,9 @@
 </head>
 <body>
     <div id="header"><a href="/messages">Inbox</a> | <a href="/sent">Sent</a></div>
-    <div id="header"><h3>Message To:</h3></div>
+    
+    <div id="header"><h3>Message To: {{name}}</h3></div>
+    
    
         {% with messages=get_flashed_messages() %}
             {% if messages %}
@@ -26,6 +28,7 @@
     <div class="holder">
     <div class="login-container">
         <form method="POST">
+            <label>replying to: {{mesg}}</label>
             <textarea id="message" name="message" rows="3" placeholder="Type message"></textarea><br><br>
             <button type="submit" class="sub-btn">Send</button><br><br>
            

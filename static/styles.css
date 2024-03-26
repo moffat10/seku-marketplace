@@ -33,6 +33,18 @@ button{
     border-radius: 20px;
     padding: 15px;
 }
+#mesg{
+    font-family: cursive;
+    text-align: center;
+    margin: 0,auto,0,auto;
+    background-color:wheat;
+    font-size: medium;
+    border-radius: 20px;
+    padding: 15px;
+}
+p{
+    font-size: xx-small;
+}
 a{
     font-family:monospace;
     font-size: x-large;
