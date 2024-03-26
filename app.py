@@ -454,7 +454,7 @@ def pay(proid):
         time.sleep(3)
         res=res.json()
         if res['ResponseCode']=='0':
-            return redirect(url_for('lnmocallback'))
+            return redirect(url_for('payment'))
         else:
             flash('Request Unsuccessful!')
             return redirect(url_for('pay',proid=proid))
