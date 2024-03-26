@@ -401,15 +401,6 @@ def replymsg(id):
 def pay(proid):
     getAccesstoken()
     cart=Shoppingkart.query.filter_by(id=proid)
-    number=request.form['number']
-    delivery=request.form['dlocation']
-    address=request.form['address']
-    product_name=request.form['productname']
-    seller_id=request.form['seller_id']
-    seller_name=request.form['seller_name']
-    buyer_id=current_user.id 
-    buyer_name=current_user.name
-    seller_contact=request.form['seller_contact']
     global dlocation
     global address1
     global productname
@@ -435,7 +426,15 @@ def pay(proid):
         times = Timestamp.strftime("%Y%m%d%H%M%S")
         password = "174379" + passkey + times
         password1 = base64.b64encode(password.encode("utf-8")).decode("utf-8")
-
+        number=request.form['number']
+        delivery=request.form['dlocation']
+        address=request.form['address']
+        product_name=request.form['productname']
+        seller_id=request.form['seller_id']
+        seller_name=request.form['seller_name']
+        buyer_id=current_user.id 
+        buyer_name=current_user.name
+        seller_contact=request.form['seller_contact']
         data = {
             "BusinessShortCode": "174379",
             "Password": password1,
