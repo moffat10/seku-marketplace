@@ -445,7 +445,7 @@ def pay(proid):
             "PartyA": "254759187700",
             "PartyB": "174379",
             "PhoneNumber": "254" + str(number),
-            "CallBackURL":"https://sekuvirtualmarket.onrender.com/lnmo-callback",
+            "CallBackURL":"https://sekuvirtualmarket.onrender.com/lnmo_callback",
             "AccountReference": "SekuVm",
             "TransactionDesc": "HelloTest",
             "Amount": "1"
@@ -459,8 +459,8 @@ def pay(proid):
     return render_template('pay.html',cart=cart)
 
 #callback url
-@app.route('/lnmo-callback', methods=['POST'])
-def incoming():
+@app.route('/lnmo_callback', methods=['POST'])
+def lnmo_callback():
     data = request.get_json()
     time.sleep(4)
     if data['ResultCode']=='1032':
