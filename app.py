@@ -412,8 +412,8 @@ def pay(proid):
         endpoint = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
         password = "174379" + passkey + times
         password1 = base64.b64encode(password.encode("utf-8")).decode("utf-8")
-        number=request.form['number']
-        delivery=request.form['dlocation']
+        number=request.form['mpesa']
+        delivery=request.form['location']
         address=request.form['address']
         product_name=request.form['productname']
         seller_id=request.form['seller_id']

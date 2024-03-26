@@ -30,20 +30,20 @@
     <div class="login-container">
         <form method="POST">
             Purchasing: {{product.name}}
-            <input type="hidden" name="productname" value="{{product.name}}">
-            <input type="hidden" name="seller_id" value="{{product.seller_id}}">
-            <input type="hidden" name="seller_name" value="{{product.seller_name}}">
-            <input type="hidden" name="seller_contact" value="{{product.seller_contact}}">
+            <input type="hidden" name="productname" id="productname" value="{{product.name}}">
+            <input type="hidden" name="seller_id" id="seller_id" value="{{product.seller_id}}">
+            <input type="hidden" name="seller_name" id="seller_name" value="{{product.seller_name}}">
+            <input type="hidden" name="seller_contact" id="seller_contact" value="{{product.seller_contact}}">
             <div id="cat"><h2>Shipping info</h2></div><br>
             Delivery Location:
-            <select name="dlocation" id="location" required >
+            <select name="location" id="location" required >
                 <option value="KV"> KV</option>
                 <option value="kitui">KITUI</option>
                 <option value="Main Campus">MAIN CAMPUS</Main></option>
             </select><br> 
-            Address:<input type="text" placeholder="E.g Plot name and room number" name="address" required><br><br>
+            Address:<input type="text" placeholder="E.g Plot name and room number" name="address" id="address" required><br><br>
             Price Ksh: {{product.price}}<br>
-            Mpesa Number:<input type="number" placeholder="Enter number" name="mpesa" required><br><br>
+            Mpesa Number:<input type="number" placeholder="Enter number" name="mpesa" id="mpesa" required><br><br>
             <button type="submit" class="sub-btn">Send</button><br><br>
            
         </form>
