@@ -426,7 +426,6 @@ def pay(proid):
     sellercontact=seller_contact
     buyerid=buyer_id
     buyername=buyer_name
-    
     endpoint = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
     if request.method=='POST':
         access_token = getAccesstoken()
@@ -504,13 +503,13 @@ def myorders():
     return render_template('myorders.html',myorders=myorders)
 #get mpesa access token
 def getAccesstoken():
-  consumer_key = "2F1rXrdxPotCuFTl3tNpQqoy0mFAiZlbZ2Gb4IiOOXwXoCHc"
-  consumer_secret = "PltOtNCa4odKGGz8mC1ZssdvDaCbz2w1SK1jpEE3MZ506DoAHo32ssoTBzE5hO7g"
-  endpoint = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
-  r = requests.get(endpoint, auth=HTTPBasicAuth(consumer_key, consumer_secret))
-  access_token = r.json()['access_token']
-  time.sleep(4)
-  return access_token
+    consumer_key = "2F1rXrdxPotCuFTl3tNpQqoy0mFAiZlbZ2Gb4IiOOXwXoCHc"
+    consumer_secret = "PltOtNCa4odKGGz8mC1ZssdvDaCbz2w1SK1jpEE3MZ506DoAHo32ssoTBzE5hO7g"
+    endpoint = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
+    r = requests.get(endpoint, auth=HTTPBasicAuth(consumer_key, consumer_secret))
+    access_token = r.json()['access_token']
+    time.sleep(3)
+    return access_token
 #start app
 if __name__=='__main__':  
     with app.app_context():
