@@ -399,7 +399,7 @@ def replymsg(id):
 @app.route('/pay/<proid>', methods=['POST','GET'])
 @login_required
 def pay(proid):
-    
+    getAccesstoken()
     cart=Shoppingkart.query.filter_by(id=proid)
     number=request.form['number']
     delivery=request.form['dlocation']
@@ -473,7 +473,7 @@ def incoming():
 
 
 #process transaction
-@app.route('/paid<mpesaref>')
+@app.route('/paid/<mpesaref>')
 @login_required()
 def paid(mpesaref):
     delivery=str(dlocation)
