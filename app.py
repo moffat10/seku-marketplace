@@ -466,8 +466,8 @@ def lnmocallback():
     data = request.get_json()
     global s_code
     global mref
-    s_code=data['body']['stkCallBack']['ResultCode']
-    mref=data['body']['stkCallBack']['CallbackMetadata']['MpesaReceiptNumber']
+    s_code=data['Body']['stkCallBack']['ResultCode']
+    mref=data['Body']['stkCallBack']['CallbackMetadata']['Item'][1]['MpesaReceiptNumber']
     return 'ok'
 #handle reponse
 @app.route('/payment')
