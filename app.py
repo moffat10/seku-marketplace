@@ -400,7 +400,6 @@ def replymsg(id):
 @login_required
 def pay(proid):
     getAccesstoken()
-    time.sleep(4)
     cart=Shoppingkart.query.filter_by(id=proid)
     
     endpoint = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
