@@ -400,6 +400,7 @@ def replymsg(id):
 @login_required
 def pay(proid):
     getAccesstoken()
+    time.sleep(4)
     cart=Shoppingkart.query.filter_by(id=proid)
     global dlocation
     global address1
@@ -443,16 +444,17 @@ def pay(proid):
             "PartyA": "254759187700",
             "PartyB": "174379",
             "PhoneNumber": "254" + str(number),
-            "CallBackURL":"https://sekuvirtualmarket.onrender.com/lnmo_callback",
+            "CallBackURL":"https://sekuvirtualmarket.onrender.com/lnmo-callback",
             "AccountReference": "SekuVm",
             "TransactionDesc": "HelloTest",
             "Amount": "1"
         }
         res = requests.post(endpoint, json=data, headers=headers)
         if res['ResponseCode']=='0':
-            return redirect(url_for('lnmo-callback'))
+            return redirect(url_for('incoming'))
         else:
             flash('Request Unsuccessful!')
+            return redirect(url_for('pay',proid=proid))
     return render_template('pay.html',cart=cart)
 
 #callback url
