@@ -451,7 +451,7 @@ def pay(proid):
         }
         res = requests.post(endpoint, json=data, headers=headers).json()
         if res['ResponseCode']=='0':
-            return redirect(url_for('incoming'))
+            return redirect(url_for('lnmocallback'))
         else:
             flash('Request Unsuccessful!')
             return redirect(url_for('pay',proid=proid))
@@ -464,7 +464,7 @@ def lnmocallback():
     time.sleep(1)
     if data['ResultCode']=='1032':
         flash('Transaction cancelled!')
-        return redirect(url_for("mycart"))
+        return redirect(url_for('mycart'))
     elif data['ResultCode']=='0':
         flash('Transaction successful!')
         mpesaref=data['MpesaReceiptNumber']
