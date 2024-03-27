@@ -467,7 +467,10 @@ def lnmocallback():
     global s_code
     global mref
     s_code=data['Body']['stkCallback']['ResultCode']
-    mref=data['stkCallback']['CallbackMetadata']['Item'][1]['MpesaReceiptNumber']
+    if s_code=='0':
+        mref=data['Body']['stkCallback']['CallbackMetadata']['Item'][1]['MpesaReceiptNumber']
+    else:
+        mref='1'
     return 'ok'
 #handle reponse
 @app.route('/payment')
@@ -475,10 +478,10 @@ def lnmocallback():
 def payment():
     time.sleep(10)
     code=s_code
-    if code=='1032':
+    if mref=='1':
         flash('Transaction cancelled!')
         return redirect(url_for('pay'))
-    elif code=='0':
+    elif mref=='0':
         flash('Transaction Successful!')
         return redirect(url_for('paid',mpesaref=mref))
     else:
