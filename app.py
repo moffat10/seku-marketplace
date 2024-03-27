@@ -480,12 +480,10 @@ def payment():
     if mref==1:
         flash('Transaction cancelled!')
         return redirect(url_for('pay'))
-    elif mref=='0':
+    else:
         flash('Transaction Successful!')
         return redirect(url_for('paid',mpesaref=mref))
-    else:
-        flash('An error occurred!')
-        return redirect(url_for('pay'))
+    
 
 
 #process transaction
