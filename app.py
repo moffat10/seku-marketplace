@@ -400,6 +400,7 @@ def replymsg(id):
 @login_required
 def pay(proid):
     getAccesstoken()
+    time.sleep(3)
     cart=Shoppingkart.query.filter_by(id=proid)
     if request.method=='POST':
         access_token = getAccesstoken()
