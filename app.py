@@ -523,7 +523,7 @@ def getAccesstoken():
     endpoint = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
     r = requests.get(endpoint, auth=HTTPBasicAuth(consumer_key, consumer_secret))
     access_token = r.json()['access_token']
-    time.sleep(4)
+    time.sleep(3)
     return access_token
 #start app
 if __name__=='__main__':  
