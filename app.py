@@ -473,7 +473,7 @@ def lnmocallback():
 @app.route('/payment')
 @login_required
 def payment():
-    time.sleep('10')
+    time.sleep(10)
     code=s_code
     if code=='1032':
         flash('Transaction cancelled!')
