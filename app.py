@@ -401,8 +401,6 @@ def replymsg(id):
 def pay(proid):
     getAccesstoken()
     cart=Shoppingkart.query.filter_by(id=proid)
-    
-    
     if request.method=='POST':
         access_token = getAccesstoken()
         headers = {"Authorization": "Bearer %s" % access_token}
@@ -524,7 +522,7 @@ def getAccesstoken():
     endpoint = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
     r = requests.get(endpoint, auth=HTTPBasicAuth(consumer_key, consumer_secret))
     access_token = r.json()['access_token']
-    time.sleep(3)
+    time.sleep(4)
     return access_token
 #start app
 if __name__=='__main__':  
