@@ -476,14 +476,15 @@ def lnmocallback():
 @app.route('/payment')
 @login_required
 def payment():
-    time.sleep(10)
-    if mref==1:
-        flash('Transaction cancelled!')
-        return redirect(url_for('pay'))
-    else:
-        flash('Transaction Successful!')
-        return redirect(url_for('paid',mpesaref=mref))
-    
+    while mref==None:
+        time.sleep(10)
+        if mref==1:
+            flash('Transaction cancelled!')
+            return redirect(url_for('pay'))
+        else:
+            flash('Transaction Successful!')
+            return redirect(url_for('paid',mpesaref=mref))
+    return render_template('pay.html')
 
 
 #process transaction
