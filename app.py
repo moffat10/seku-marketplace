@@ -470,14 +470,14 @@ def lnmocallback():
     if s_code=='0':
         mref=data['Body']['stkCallback']['CallbackMetadata']['Item'][1]['MpesaReceiptNumber']
     else:
-        mref='1'
+        mref=1
     return 'ok'
 #handle reponse
 @app.route('/payment')
 @login_required
 def payment():
     time.sleep(10)
-    if mref=='1':
+    if mref==1:
         flash('Transaction cancelled!')
         return redirect(url_for('pay'))
     elif mref=='0':
