@@ -477,7 +477,6 @@ def lnmocallback():
 @login_required
 def payment():
     time.sleep(10)
-    code=s_code
     if mref=='1':
         flash('Transaction cancelled!')
         return redirect(url_for('pay'))
